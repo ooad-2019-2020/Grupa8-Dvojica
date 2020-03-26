@@ -1,3 +1,10 @@
+# Tema: Online kupovina igrica
+
+# Članovi tima:
+ - Alem Lučkin
+ 
+ - Tarik Kulosmanović
+
 # Opis teme
 
 Zanima vas sta je novo na gaming tržištu? Želite novi gaming naslov ali ipak nemate volje da idete do grada. Uz novu aplikaciju OnlineGames neće biti potrebe za tim.
