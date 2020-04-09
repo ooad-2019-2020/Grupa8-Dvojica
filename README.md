@@ -35,5 +35,5 @@ Radi lakšeg odabira uveli smo mogućnost pretrage po raznim parametrima kao i z
 
 - Gost - neregistrovana osoba koja može da vidi dostupne igrice te ima mogućnost registracije.
 - Registrovani korisnik - osoba koja ima mogućnost ažuriranja svog profila te kupovine igrica. Takođe ima mogućnost pregleda, sortiranja kao i pretrage.
-- Vip korisnik - Sve mogucnosti kao i &quot;Registrovani korisnik&quot; uz dodatak isprobavanja igrice prije kupovine, značke te budućeg popusta na kupovinu.
+- Vip korisnik - Sve mogucnosti kao i &quot;Registrovani korisnik&quot; uz dodatak isprobavanja igrice prije kupovine, VIP značke te budućeg popusta na kupovinu.
 - Administrator – osoba koja je zadužena za održavanje i upravljanje te autorizaciju pristupa sistemu (dodavanje korisničkih naloga, dodavanje i brisanje novih igrica).
