@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OnlineGames.Models.KategorijaIgrica>
+
+@{
+    ViewData["Title"] = "Kategorije igrice";
+}
+
+<h1>Kategorije igrice</h1>
+
+<p>
+    <a asp-action="Create">Kreiraj</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Pronađi po imenu: <input type="text" name="searchFilter" value="@ViewData["Pretraga"]" placeholder="Pretraga" />
+            <input type="submit" value="Pretraži" class="btn btn-default" /> |
+            <a asp-action="Index">Vidi sve</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Kategorija)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Igrica)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kategorija.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Igrica.Naziv)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.KategorijaIgricaId">Promijeni</a> |
+                <a asp-action="Details" asp-route-id="@item.KategorijaIgricaId">Detalji</a> |
+                <a asp-action="Delete" asp-route-id="@item.KategorijaIgricaId">Obriši</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

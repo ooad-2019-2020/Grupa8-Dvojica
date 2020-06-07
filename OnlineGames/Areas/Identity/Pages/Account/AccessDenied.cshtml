@@ -1,0 +1,17 @@
+﻿@page
+@model AccessDeniedModel
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Pristup odbijen!";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <header>
+        <h1 class="text-danger">@ViewData["Title"]</h1>
+        <p class="text-danger">Nemate pristup ovoj stranici.</p>
+    </header>
+}

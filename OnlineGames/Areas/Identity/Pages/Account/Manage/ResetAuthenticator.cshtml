@@ -1,0 +1,24 @@
+﻿@page
+@model ResetAuthenticatorModel
+@{
+    ViewData["Title"] = "Obnovi ključ autentičnosti";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>Ako obnovite vaš ključ autentičnosti vaša aplikacija autentičnosti neće raditi dok je ne rekonfigurišete.</strong>
+    </p>
+    <p>
+        Ovaj proces će isključiti 2FA dok ne verifikujete vašu aplikaciju autentičnosti.
+        Ako ne rekonfigurišete vašu aplikaciju autentičnosti, možete izgubiti pristup vašem nalogu.
+    </p>
+</div>
+<div>
+    <form id="reset-authenticator-form" method="post" class="form-group">
+        <button id="reset-authenticator-button" class="btn btn-danger" type="submit">Obnovite ključ autentičnosti</button>
+    </form>
+</div>

@@ -1,0 +1,57 @@
+﻿@model OnlineGames.Models.Igrica
+
+@{
+    ViewData["Title"] = "Obriši igricu";
+}
+
+<h1>Obriši</h1>
+
+<h3>Da li želite da obrišete?</h3>
+<div>
+    <h4>Igrica</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumIzlaska)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatumIzlaska)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Izdavac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Izdavac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Specifikacije)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Specifikacije)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cijena)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cijena)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SlikaIgrice)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@(string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(Model.SlikaIgrice.ImageData)))" />
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Obriši" class="btn btn-danger" /> |
+        <a asp-action="Index">Vrati se nazad</a>
+    </form>
+</div>

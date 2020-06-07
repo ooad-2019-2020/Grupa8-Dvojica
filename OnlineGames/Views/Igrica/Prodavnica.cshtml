@@ -1,0 +1,241 @@
+﻿@model IEnumerable<OnlineGames.Models.KategorijaIgrica>
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    var Kategorije = (List<Kategorija>)ViewData["Kategorije"];
+    var Igrice = (List<Igrica>)ViewData["Igrice"];
+    int brojac = 0;
+}
+
+@{
+    ViewData["Title"] = "Prodavnica";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin-bottom: auto;
+        text-align: center;
+        font-family: arial;
+        background-color: lightgray;
+    }
+
+    .price {
+        color: grey;
+        padding-top: 5px;
+        font-weight: 500;
+    }
+
+    .button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+        .card button:hover {
+            opacity: 0.7;
+        }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .kolona {
+        float: left;
+        width: 33.33%;
+        padding: 10px;
+    }
+
+    /* Clearfix (clear floats) */
+    .red::after {
+        content: "";
+        clear: both;
+        display: table;
+        max-width: 75%;
+    }
+
+    .red {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -7.5px;
+        margin-left: -7.5px;
+    }
+
+    .slika img {
+        float: left;
+        width: 100%;
+        height: 200px;
+    }
+
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+    }
+
+    .dropdown {
+        position: fixed;
+        display: inline-block;
+        padding: 10px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+</style>
+
+<div class="red">
+
+    <section class="col-lg-9">
+
+
+        @foreach (var igrica in Igrice)
+        {
+            brojac = 0;
+            foreach (var item in Model.Select(i => i.Igrica))
+            {
+                if (igrica.Id == item.Id && brojac == 0)
+                {
+                    brojac++;
+                    <div class="kolona">
+                        <div class="card">
+                            <div class="slika">
+                                <a asp-action="OIgrici" asp-route-id="@item.Id">
+                                    <img src="@(string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.SlikaIgrice.ImageData)))" style="object-fit:fill">
+                                </a>
+                            </div>
+                            <h class="font-weight-bold" style="font-size:15px;">
+                                @Html.DisplayFor(modelItem => item.Naziv)
+                            </h>
+                            <p class="price">@(Html.DisplayFor(modelItem => item.Cijena))KM</p>
+                            <p>@Html.DisplayFor(modelItem => item.Izdavac)</p>
+                            @if (!SignInManager.IsSignedIn(User))
+                            {
+                                <a class="button" asp-area="Identity" asp-page="/Account/Login">
+                                    Kupi
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="button" asp-route-id="@item.Id" asp-action="KupiIgricu">
+                                    Kupi
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </section>
+
+    <section class="col-lg-3">
+        <form class="form-inline ml-3 flex-column" style="padding:25px;">
+            <div class="input-group input-group-sm" style="position:fixed;">
+                <input class="form-control form-control-navbar" type="search" name="searchFilter" value="@ViewData["Pretraga"]" placeholder="Pretraga" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="kolona" style="position:fixed; width:20%;">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview" style="padding:5px;">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <h>
+                            Sortiraj po:
+                        </h>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-action="Prodavnica" asp-route-sortOrder="@ViewData["SortCijena"]" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <h>Cijena</h>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Prodavnica" asp-route-sortOrder="@ViewData["SortDatum"]" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <h>Datum izlaska</h>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Prodavnica" asp-route-sortOrder="@ViewData["SortNaziv"]" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <h>Naziv</h>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview" style="padding:5px;">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <h>
+                            Kategorije:
+                        </h>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @foreach (var kategorije in Kategorije)
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Prodavnica" asp-route-categoryFilter="@kategorije.Naziv" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <h>@kategorije.Naziv</h>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

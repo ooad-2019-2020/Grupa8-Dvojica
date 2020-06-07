@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OnlineGames.Models.Novosti>
+
+@{
+    ViewData["Title"] = "Novosti";
+}
+
+<h1>Najnovije vijesti u svijetu gejminga</h1>
+
+<form asp-action="Novosti" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Pronađi po imenu: <input type="text" name="searchFilter" value="@ViewData["Pretraga"]" placeholder="Pretraga" />
+            <input type="submit" value="Pretraži" class="btn btn-default" /> |
+            <a asp-action="Novosti">Vidi sve</a>
+        </p>
+    </div>
+</form>
+
+@foreach (var item in Model)
+{
+    <div class="card">
+        <div class="card-header">
+            <h5 class="m-0">@Html.DisplayFor(modelItem => item.Naslov)</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                @Html.DisplayFor(modelItem => item.Tekst)
+            </p>
+            <a href="@Html.DisplayFor(modelItem => item.Link)" class="card-link">
+                <p>
+                    Idi na link
+                </p>
+            </a>
+        </div>
+    </div>
+}
+
+
+
+

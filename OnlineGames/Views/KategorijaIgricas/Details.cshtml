@@ -1,0 +1,30 @@
+﻿@model OnlineGames.Models.KategorijaIgrica
+
+@{
+    ViewData["Title"] = "Kategorije igrice";
+}
+
+<h1>Detalji</h1>
+
+<div>
+    <h4>Kategorije igrice</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kategorija)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kategorija.Naziv)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Igrica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Igrica.Naziv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.KategorijaIgricaId">Promijeni</a> |
+    <a asp-action="Index">Vrati se nazad</a>
+</div>

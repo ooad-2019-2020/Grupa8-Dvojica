@@ -1,0 +1,64 @@
+﻿@page
+@model EnableAuthenticatorModel
+@{
+    ViewData["Title"] = "Podesite autentičnost";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+<div>
+    <p>Da bi koristili dvostruku provjeru autentičnosti pratite sljedeće korake:</p>
+    <ol class="list">
+        <li>
+            <p>
+                Skinite aplikaciju autentičnosti kao što je Microsoft Authenticator za
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825071">Windows telefone</a>,
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android telefone</a> i
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS telefone</a> ili
+                Google Authenticator za
+                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android telefone</a> i 
+                <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS telefone</a>.
+            </p>
+        </li>
+        <li>
+            <p>Skeniraj QR kod ili unesite ovaj ključ <kbd>@Model.SharedKey</kbd> u vašu aplikaciju autentičnosti.</p>
+            <div id="qrCode"></div>
+            <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
+        </li>
+        <li>
+            <p>
+                Kada ste završili sa skeniranjem, vaša aplikacija autentičnosti će vam omogućiti jedinstven kod.
+                Unesite dobijeni kod u polje ispod.
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="send-code" method="post">
+                        <div class="form-group">
+                            <label asp-for="Input.Code" class="control-label">Verifikacijski kod</label>
+                            <input asp-for="Input.Code" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Input.Code" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Verifikujte</button>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ol>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript" src="~/lib/qrcode.js"></script>
+    <script type="text/javascript">
+        new QRCode(document.getElementById("qrCode"),
+            {
+                text: "@Html.Raw(Model.AuthenticatorUri)",
+                width: 150,
+                height: 150
+            });
+    </script>
+
+}

@@ -1,0 +1,24 @@
+﻿@model OnlineGames.Models.Kategorija
+
+@{
+    ViewData["Title"] = "Detalji kategorije";
+}
+
+<h1>Detalji</h1>
+
+<div>
+    <h4>Kategorija</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.KategorijaId">Promijeni</a> |
+    <a asp-action="Index">Vrati se nazad</a>
+</div>

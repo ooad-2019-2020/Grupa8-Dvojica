@@ -1,0 +1,18 @@
+﻿@page
+@model LogoutModel
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Odjava";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <header>
+        <h1>@ViewData["Title"]</h1>
+        <p>Uspješno ste se odjavili sa aplikacije.</p>
+    </header>
+}
+

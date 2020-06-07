@@ -1,0 +1,68 @@
+﻿@model RoleEdit
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = Model.Role.Name;
+}
+
+<h1>Dodaj korisniku ulogu</h1>
+
+<form asp-action="Update" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Pronađi po imenu: <input type="text" name="searchFilter" value="@ViewData["Pretraga"]" placeholder="Pretraga" />
+            <input type="submit" value="Pretraži" class="btn btn-default" /> |
+            <a asp-action="Update">Vidi sve</a>
+        </p>
+    </div>
+</form>
+
+<form method="post">
+    <input type="hidden" name="roleName" value="@Model.Role.Name" />
+    <input type="hidden" name="roleId" value="@Model.Role.Id" />
+
+    <h2 class="bg-info p-1 text-white">Dodaj u @Model.Role.Name</h2>
+    <table class="table table-bordered table-sm">
+        @if (Model.NonMembers.Count() == 0)
+        {
+            <tr><td colspan="2">Svi korisnici imaju ovu ulogu</td></tr>
+        }
+        else
+        {
+            @foreach (IdentityUser user in Model.NonMembers)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>
+                        <input type="checkbox" name="AddIds" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <h2 class="bg-info p-1 text-white">Ukloni iz @Model.Role.Name</h2>
+    <table class="table table-bordered table-sm">
+        @if (Model.Members.Count() == 0)
+        {
+            <tr><td colspan="2">Nema korisnika koji imaju ovu ulogu</td></tr>
+        }
+        else
+        {
+            @foreach (IdentityUser user in Model.Members)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>
+                        <input type="checkbox" name="DeleteIds" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <button type="submit" class="btn btn-primary">Sačuvaj</button>
+</form>
+
+<div>
+    <a asp-action="Index">Vrati se nazad</a>
+</div>
